@@ -1,0 +1,307 @@
+   <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasa Joki Tugas & Desain - Rafi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: 'Poppins', sans-serif; background: #F8FAFC; color: #0F172A;}
+        .container {max-width: 1200px; margin: 0 auto;}
+        
+        /* BANNER SECTION */
+        .banner {
+            width: 100%; min-height: 100vh; background: #0F172A; 
+            color: white; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .banner-bg {
+            position: absolute; width: 800px; height: 800px;
+            background: #1E3A8A; border-radius: 50%;
+            top: -200px; right: -200px; opacity: 0.6;
+        }
+        .banner-content {
+            position: relative; z-index: 2; padding: 60px 40px;
+            text-align: center; max-width: 600px;
+        }
+        .banner h1 {font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px;}
+        .banner h1 span {color: #FACC15;}
+        .banner .subtitle {font-size: 20px; color: #FACC15; margin-bottom: 40px; font-weight: 600;}
+        .banner-list {font-size: 22px; line-height: 1.8; margin-bottom: 40px; text-align: left; display: inline-block;}
+        .banner-list-item {margin-bottom: 15px; display: flex; align-items: center;}
+        .check {color: #22C55E; margin-right: 15px; font-size: 28px;}
+        .price-box {
+            background: #FACC15; color: #0F172A; padding: 25px;
+            border-radius: 20px; margin: 30px 0;
+        }
+        .price {font-size: 48px; font-weight: 800; font-family: 'Montserrat';}
+        .price-text {font-size: 20px; font-weight: 600;}
+        .warning {
+            background: #DC2626; padding: 20px; border-radius: 15px;
+            font-size: 18px; font-weight: 700; margin-bottom: 30px;
+        }
+        .tagline {font-size: 20px; color: #FACC15; font-weight: 700; margin-top: 20px;}
+
+        /* PORTOFOLIO SECTION BARU */
+        .portfolio {padding: 80px 20px; background: #F8FAFC;}
+        .portfolio h2 {
+            color: #1E3A8A; font-size: 42px; text-align: center;
+            margin-bottom: 15px; font-weight: 700; font-family: 'Montserrat';
+        }
+        .portfolio-subtitle {text-align: center; color: #64748B; margin-bottom: 50px; font-size: 18px;}
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px; max-width: 1200px; margin: 0 auto;
+        }
+        .porto-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: 0.3s;
+            text-decoration: none; color: inherit;
+        }
+        .porto-card:hover {transform: translateY(-8px); box-shadow: 0 15px 35px rgba(30,58,138,0.2);}
+        .porto-img {
+            width: 100%; height: 200px; object-fit: cover; background: #E2E8F0;
+            display: flex; align-items: center; justify-content: center; font-size: 48px;
+        }
+        .porto-info {padding: 20px;}
+        .porto-info h3 {color: #1E3A8A; font-size: 20px; margin-bottom: 8px;}
+        .porto-info p {color: #64748B; font-size: 14px; margin-bottom: 15px;}
+        .porto-btn {
+            background: #1E3A8A; color: white; padding: 10px 20px;
+            border-radius: 50px; font-size: 14px; font-weight: 600;
+            display: inline-block; transition: 0.3s;
+        }
+        .porto-card:hover .porto-btn {background: #FACC15; color: #0F172A;}
+
+        /* PRICELIST SECTION */
+        .pricelist {padding: 80px 20px; background: white;}
+        .pricelist h2 {
+            color: #1E3A8A; font-size: 42px; text-align: center;
+            margin-bottom: 40px; font-weight: 700; font-family: 'Montserrat';
+        }
+        .table-wrap {overflow-x: auto; margin-bottom: 30px;}
+        table {
+            width: 100%; border-collapse: collapse; font-size: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-radius: 15px; overflow: hidden;
+        }
+        th {
+            background: #1E3A8A; color: white; padding: 18px 15px;
+            text-align: left; font-weight: 700;
+        }
+        td {padding: 16px 15px; border-bottom: 2px solid #E5E7EB;}
+        tr:nth-child(even) {background: #F1F5F9;}
+        .jasa {font-weight: 700; color: #1E3A8A;}
+        
+        /* SYARAT SECTION */
+        .syarat-section {padding: 0 20px 80px 20px; background: white;}
+        .syarat {
+            background: #FEF3C7; padding: 30px; border-radius: 15px;
+            border-left: 6px solid #F59E0B; font-size: 16px; max-width: 1200px; margin: 0 auto;
+        }
+        .syarat h3 {color: #92400E; margin-bottom: 20px; font-size: 24px; text-align: center;}
+        .syarat h4 {color: #1E3A8A; margin: 20px 0 10px 0; font-size: 18px;}
+        .syarat ol, .syarat ul {padding-left: 25px;}
+        .syarat li {margin: 10px 0; line-height: 1.6;}
+        .danger {color: #DC2626; font-weight: 700;}
+        .payment-box {
+            background: #DBEAFE; padding: 20px; border-radius: 12px; 
+            margin-top: 20px; border: 2px dashed #3B82F6;
+        }
+        .payment-box strong {color: #1E3A8A; font-size: 18px;}
+
+        /* CTA BUTTONS */
+        .cta {
+            padding: 60px 20px; background: #0F172A; text-align: center;
+        }
+        .cta h2 {color: white; font-size: 36px; margin-bottom: 30px; font-family: 'Montserrat';}
+        .btn {
+            display: inline-block; padding: 18px 35px; border-radius: 50px; 
+            text-decoration: none; font-weight: 700; margin: 10px; 
+            transition: 0.3s; font-size: 18px;
+        }
+        .btn-wa {background: #25D366; color: white;}
+        .btn-wa:hover {transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37,211,102,0.4);}
+        .btn-email {background: white; color: #0F172A;}
+        .footer {text-align: center; padding: 30px; color: #64748B; font-size: 14px; background: #F8FAFC;}
+
+        @media (max-width: 768px) {
+            .banner h1 {font-size: 36px;}
+            .banner-list {font-size: 18px;}
+            .price {font-size: 40px;}
+            table {font-size: 14px;}
+            th, td {padding: 12px 8px;}
+            .portfolio-grid {grid-template-columns: 1fr;}
+        }
+    </style>
+</head>
+<body>
+    <!-- BANNER SECTION -->
+    <section class="banner">
+        <div class="banner-bg"></div>
+        <div class="banner-content">
+            <h1>JASA JOKI TUGAS<br><span>& DESAIN KREATIF</span></h1>
+            <div class="subtitle">📚💻 Cepat, Rapi, Terpercaya 50+ Klien</div>
+            
+            <div class="banner-list">
+                <div class="banner-list-item"><span class="check">✓</span> PPT Indo/English + Animasi</div>
+                <div class="banner-list-item"><span class="check">✓</span> Makalah, Essay, Rangkuman</div>
+                <div class="banner-list-item"><span class="check">✓</span> Logo, Poster, Infografis</div>
+                <div class="banner-list-item"><span class="check">✓</span> CV ATS Friendly Lolos HRD</div>
+            </div>
+
+            <div class="price-box">
+                <div class="price-text">MULAI</div>
+                <div class="price">20 RIBU</div>
+                <div class="price-text">Revisi 1x GRATIS</div>
+            </div>
+
+            <div class="warning">❌ TIDAK MENERIMA JOKI UJIAN/QUIZ/SKRIPSI</div>
+            <div class="tagline">Deadline Aman, Nilai Aman</div>
+        </div>
+    </section>
+
+    <!-- PORTOFOLIO SECTION BARU -->
+    <section class="portfolio">
+        <div class="container">
+            <h2>Contoh Hasil Joki Kami</h2>
+            <p class="portfolio-subtitle">Klik gambar buat lihat detail & order via WhatsApp</p>
+
+    <!-- PRICELIST SECTION -->
+    <section class="pricelist">
+        <div class="container">
+            <h2>PRICE LIST JOKI TUGAS 2026</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>JASA</th>
+                        <th>PELAJAR</th>
+                        <th>MAHASISWA</th>
+                        <th>CATATAN</th>
+                    </tr>
+                    <tr>
+                        <td class="jasa">PPT 10 Slide</td>
+                        <td>Rp25rb - 40rb</td>
+                        <td>Rp40rb - 70rb</td>
+                        <td>+10rb English</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">PPT 15-20 Slide</td>
+                        <td>Rp40rb - 60rb</td>
+                        <td>Rp70rb - 100rb</td>
+                        <td>Desain premium</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Makalah 5-8 Hal</td>
+                        <td>Rp40rb - 65rb</td>
+                        <td>Rp70rb - 110rb</td>
+                        <td>Riset + dapus</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Makalah 9-15 Hal</td>
+                        <td>Rp65rb - 90rb</td>
+                        <td>Rp110rb - 160rb</td>
+                        <td>Anti-plagiat</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Rangkuman/Bab</td>
+                        <td>Rp20rb - 35rb</td>
+                        <td>Rp35rb - 60rb</td>
+                        <td>Max 10 hal</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Tugas MTK/Fisika</td>
+                        <td>Rp7rb/soal</td>
+                        <td>Rp12rb/soal</td>
+                        <td>SMA + cara kerja</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Logo Simple</td>
+                        <td>Rp50rb - 100rb</td>
+                        <td>Rp100rb - 200rb</td>
+                        <td>3 konsep awal</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Poster A3/A4</td>
+                        <td>Rp50rb - 100rb</td>
+                        <td>Rp100rb - 180rb</td>
+                        <td>JPG + PDF + file mentah</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Infografis</td>
+                        <td>Rp40rb - 80rb</td>
+                        <td>Rp80rb - 150rb</td>
+                        <td>Data visual</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">CV ATS Friendly</td>
+                        <td>Rp35rb</td>
+                        <td>Rp60rb</td>
+                        <td>PDF + Word + tips</td>
+                    </tr>
+                    <tr>
+                        <td class="jasa">Express <24 Jam</td>
+                        <td>+75% Harga</td>
+                        <td>+75% Harga</td>
+                        <td>Wajib chat dulu</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYARAT SECTION -->
+    <section class="syarat-section">
+        <div class="syarat">
+            <h3>SYARAT & KETENTUAN ORDER - WAJIB BACA</h3>
+            
+            <h4>1. MATERI & REFERENSI</h4>
+            <ol>
+                <li><strong>Wajib kasih brief jelas:</strong> Judul, jumlah slide/halaman, deadline, format yang diminta dosen/guru.</li>
+                <li><strong>Opsi A - Klien kasih materi:</strong> Kirim file/PDF/poin-poin. Hasil 95% sesuai. <strong>Harga normal.</strong></li>
+                <li><strong>Opsi B - Bebas penjoki:</strong> Cuma kasih judul + deadline. Kita yang riset dari 0. <strong>+Biaya riset Rp10rb-Rp30rb.</strong></li>
+                <li><strong>Tanpa referensi & nggak mau bayar riset = Maaf kami tolak</strong> biar nggak tebak-tebakan.</li>
+            </ol>
+
+            <h4>2. PEMBAYARAN</h4>
+            <ol>
+                <li><strong>DP 50% di awal setelah deal harga.</strong> Baru tugas dikerjakan. No DP = No kerja.</li>
+                <li><strong>Pelunasan</strong> setelah file preview PDF dikirim & klien ACC. Baru kirim file edit PPT/Word.</li>
+                <li><strong>DP hangus</strong> jika klien batal sepihak setelah pengerjaan dimulai.</li>
+            </ol>
+            <div class="payment-box">
+                <strong>💳 PEMBAYARAN VIA:</strong><br>
+                DANA / Gopay : <strong>0882 1372 1792</strong><br>
+                Muhammad Noor Arrafi - Wajib kirim bukti transfer ya kak
+            </div>
+
+            <h4>3. PENGERJAAN & REVISI</h4>
+            <ol>
+                <li><strong>Waktu normal 1-3 hari</strong> tergantung antrian. Express <24 jam +75% harga.</li>
+                <li><strong>Gratis revisi 1x minor:</strong> typo, ganti warna, tambah 1-2 slide, geser layout.</li>
+                <li><strong>Revisi mayor bayar lagi:</strong> Ganti total tema, tambah >3 slide, rombak isi = hitung project baru.</li>
+                <li><strong>Batas komplain 1x24 jam</strong> setelah file final dikirim. Lewat itu dianggap selesai.</li>
+            </ol>
+
+            <h4>4. BATASAN JASA</h4>
+            <ol>
+                <li class="danger"><strong>TOLAK TEGAS:</strong> Joki ujian, kuis, UTS, UAS, skripsi, tesis, disertasi, tes CPNS/BUMN.</li>
+                <li><strong>Hanya terima:</strong> PPT presentasi, makalah, resume, rangkuman, tugas harian, desain.</li>
+                <li><strong>Data klien 100% rahasia.</strong> Tidak disebar atau jadi portofolio tanpa izin.</li>
+                <li><strong>Fast Response:</strong> 08.00 - 21.00 WIB. Chat di luar jam itu dibalas besoknya.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <h2>Konsultasi Gratis & Order Sekarang</h2>
+        <a href="https://wa.me/6288213721792?text=Halo%20kak%20Rafi,%20saya%20mau%20tanya%20jasa%20joki%20tugas.%20Saya%20sudah%20lihat%20portofolio%20dan%20baca%20syaratnya" class="btn btn-wa">💬 Chat WhatsApp</a>
+        <a href="mailto:arrafirafi2010@gmail.com?subject=Order%20Joki%20Tugas" class="btn btn-email">📧 Kirim Email</a>
+    </section>
+
+    <div class="footer">
+        <p>© 2026 Jasa Joki arrafi | 100% Amanah & Privasi Terjaga</p>
+    </div>
+</body>
+</html> 
