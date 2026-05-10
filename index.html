@@ -1,307 +1,288 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jasa Joki Tugas & Desain - Rafi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Exam - Mobile Anti-Cheat</title>
     <style>
-        * {margin: 0; padding: 0; box-sizing: border-box;}
-        body {font-family: 'Poppins', sans-serif; background: #F8FAFC; color: #0F172A;}
-        .container {max-width: 1200px; margin: 0 auto;}
+        :root {
+            --primary: #6366f1;
+            --danger: #f43f5e;
+            --success: #10b981;
+            --bg: #0f172a;
+            --card: #1e293b;
+        }
+
+        /* Mencegah scrolling dan pull-to-refresh di HP */
+        html, body { 
+            overscroll-behavior-y: none; 
+            overflow: hidden;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * { touch-action: manipulation; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        .hide { display: none !important; }
+
+        /* Login & UI Glassmorphism */
+        .glass { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
         
-        /* BANNER SECTION */
-        .banner {
-            width: 100%; min-height: 100vh; background: #0F172A; 
-            color: white; position: relative; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
+        .screen {
+            position: fixed; inset: 0; display: flex; flex-direction: column;
+            padding: 15px; overflow-y: auto;
         }
-        .banner-bg {
-            position: absolute; width: 800px; height: 800px;
-            background: #1E3A8A; border-radius: 50%;
-            top: -200px; right: -200px; opacity: 0.6;
-        }
-        .banner-content {
-            position: relative; z-index: 2; padding: 60px 40px;
-            text-align: center; max-width: 600px;
-        }
-        .banner h1 {font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px;}
-        .banner h1 span {color: #FACC15;}
-        .banner .subtitle {font-size: 20px; color: #FACC15; margin-bottom: 40px; font-weight: 600;}
-        .banner-list {font-size: 22px; line-height: 1.8; margin-bottom: 40px; text-align: left; display: inline-block;}
-        .banner-list-item {margin-bottom: 15px; display: flex; align-items: center;}
-        .check {color: #22C55E; margin-right: 15px; font-size: 28px;}
-        .price-box {
-            background: #FACC15; color: #0F172A; padding: 25px;
-            border-radius: 20px; margin: 30px 0;
-        }
-        .price {font-size: 48px; font-weight: 800; font-family: 'Montserrat';}
-        .price-text {font-size: 20px; font-weight: 600;}
-        .warning {
-            background: #DC2626; padding: 20px; border-radius: 15px;
-            font-size: 18px; font-weight: 700; margin-bottom: 30px;
-        }
-        .tagline {font-size: 20px; color: #FACC15; font-weight: 700; margin-top: 20px;}
 
-        /* PORTOFOLIO SECTION BARU */
-        .portfolio {padding: 80px 20px; background: #F8FAFC;}
-        .portfolio h2 {
-            color: #1E3A8A; font-size: 42px; text-align: center;
-            margin-bottom: 15px; font-weight: 700; font-family: 'Montserrat';
-        }
-        .portfolio-subtitle {text-align: center; color: #64748B; margin-bottom: 50px; font-size: 18px;}
-        .portfolio-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px; max-width: 1200px; margin: 0 auto;
-        }
-        .porto-card {
-            background: white; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: 0.3s;
-            text-decoration: none; color: inherit;
-        }
-        .porto-card:hover {transform: translateY(-8px); box-shadow: 0 15px 35px rgba(30,58,138,0.2);}
-        .porto-img {
-            width: 100%; height: 200px; object-fit: cover; background: #E2E8F0;
-            display: flex; align-items: center; justify-content: center; font-size: 48px;
-        }
-        .porto-info {padding: 20px;}
-        .porto-info h3 {color: #1E3A8A; font-size: 20px; margin-bottom: 8px;}
-        .porto-info p {color: #64748B; font-size: 14px; margin-bottom: 15px;}
-        .porto-btn {
-            background: #1E3A8A; color: white; padding: 10px 20px;
-            border-radius: 50px; font-size: 14px; font-weight: 600;
-            display: inline-block; transition: 0.3s;
-        }
-        .porto-card:hover .porto-btn {background: #FACC15; color: #0F172A;}
+        .login-box { width: 100%; max-width: 400px; margin: auto; padding: 2rem; border-radius: 24px; text-align: center; }
 
-        /* PRICELIST SECTION */
-        .pricelist {padding: 80px 20px; background: white;}
-        .pricelist h2 {
-            color: #1E3A8A; font-size: 42px; text-align: center;
-            margin-bottom: 40px; font-weight: 700; font-family: 'Montserrat';
+        input {
+            width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px;
+            border: 1px solid #334155; background: #020617; color: white;
+            font-size: 16px; /* Penting: 16px mencegah auto-zoom di iOS */
         }
-        .table-wrap {overflow-x: auto; margin-bottom: 30px;}
-        table {
-            width: 100%; border-collapse: collapse; font-size: 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08); border-radius: 15px; overflow: hidden;
-        }
-        th {
-            background: #1E3A8A; color: white; padding: 18px 15px;
-            text-align: left; font-weight: 700;
-        }
-        td {padding: 16px 15px; border-bottom: 2px solid #E5E7EB;}
-        tr:nth-child(even) {background: #F1F5F9;}
-        .jasa {font-weight: 700; color: #1E3A8A;}
-        
-        /* SYARAT SECTION */
-        .syarat-section {padding: 0 20px 80px 20px; background: white;}
-        .syarat {
-            background: #FEF3C7; padding: 30px; border-radius: 15px;
-            border-left: 6px solid #F59E0B; font-size: 16px; max-width: 1200px; margin: 0 auto;
-        }
-        .syarat h3 {color: #92400E; margin-bottom: 20px; font-size: 24px; text-align: center;}
-        .syarat h4 {color: #1E3A8A; margin: 20px 0 10px 0; font-size: 18px;}
-        .syarat ol, .syarat ul {padding-left: 25px;}
-        .syarat li {margin: 10px 0; line-height: 1.6;}
-        .danger {color: #DC2626; font-weight: 700;}
-        .payment-box {
-            background: #DBEAFE; padding: 20px; border-radius: 12px; 
-            margin-top: 20px; border: 2px dashed #3B82F6;
-        }
-        .payment-box strong {color: #1E3A8A; font-size: 18px;}
 
-        /* CTA BUTTONS */
-        .cta {
-            padding: 60px 20px; background: #0F172A; text-align: center;
+        /* Dashboard Monitor Guru */
+        .grid-monitor {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px; margin-top: 20px;
         }
-        .cta h2 {color: white; font-size: 36px; margin-bottom: 30px; font-family: 'Montserrat';}
-        .btn {
-            display: inline-block; padding: 18px 35px; border-radius: 50px; 
-            text-decoration: none; font-weight: 700; margin: 10px; 
-            transition: 0.3s; font-size: 18px;
+        .card-siswa {
+            padding: 10px; border-radius: 12px; font-size: 0.75rem;
+            position: relative; overflow: hidden;
         }
-        .btn-wa {background: #25D366; color: white;}
-        .btn-wa:hover {transform: translateY(-3px); box-shadow: 0 8px 25px rgba(37,211,102,0.4);}
-        .btn-email {background: white; color: #0F172A;}
-        .footer {text-align: center; padding: 30px; color: #64748B; font-size: 14px; background: #F8FAFC;}
+        .snap-img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 5px; }
+        .badge-alert { position: absolute; top: 5px; right: 5px; background: var(--danger); padding: 2px 6px; border-radius: 10px; font-size: 0.6rem; }
 
-        @media (max-width: 768px) {
-            .banner h1 {font-size: 36px;}
-            .banner-list {font-size: 18px;}
-            .price {font-size: 40px;}
-            table {font-size: 14px;}
-            th, td {padding: 12px 8px;}
-            .portfolio-grid {grid-template-columns: 1fr;}
+        /* Interface Siswa */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #334155; }
+        .soal-card { margin-top: 20px; padding: 20px; border-radius: 20px; }
+        .opsi { 
+            background: var(--card); padding: 16px; margin: 12px 0; border-radius: 15px;
+            border: 2px solid transparent; transition: 0.2s;
+        }
+        .opsi.active { border-color: var(--primary); background: #312e81; }
+
+        .btn { 
+            background: var(--primary); color: white; border: none; padding: 15px; 
+            border-radius: 12px; font-weight: bold; width: 100%; margin-top: 10px;
         }
     </style>
 </head>
-<body>
-    <!-- BANNER SECTION -->
-    <section class="banner">
-        <div class="banner-bg"></div>
-        <div class="banner-content">
-            <h1>JASA JOKI TUGAS<br><span>& DESAIN KREATIF</span></h1>
-            <div class="subtitle">📚💻 Cepat, Rapi, Terpercaya 50+ Klien</div>
+<body oncontextmenu="return false">
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="screen">
+        <div class="login-box glass">
+            <h2>Exam Guard Pro Arrafiimuhammadd</h2>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 20px;">Live Monitoring & Anti-Cheat</p>
             
-            <div class="banner-list">
-                <div class="banner-list-item"><span class="check">✓</span> PPT Indo/English + Animasi</div>
-                <div class="banner-list-item"><span class="check">✓</span> Makalah, Essay, Rangkuman</div>
-                <div class="banner-list-item"><span class="check">✓</span> Logo, Poster, Infografis</div>
-                <div class="banner-list-item"><span class="check">✓</span> CV ATS Friendly Lolos HRD</div>
-            </div>
-
-            <div class="price-box">
-                <div class="price-text">MULAI</div>
-                <div class="price">20 RIBU</div>
-                <div class="price-text">Revisi 1x GRATIS</div>
-            </div>
-
-            <div class="warning">❌ TIDAK MENERIMA JOKI UJIAN/QUIZ/SKRIPSI</div>
-            <div class="tagline">Deadline Aman, Nilai Aman</div>
-        </div>
-    </section>
-
-    <!-- PORTOFOLIO SECTION BARU -->
-    <section class="portfolio">
-        <div class="container">
-            <h2>Contoh Hasil Joki Kami</h2>
-            <p class="portfolio-subtitle">Klik gambar buat lihat detail & order via WhatsApp</p>
-
-    <!-- PRICELIST SECTION -->
-    <section class="pricelist">
-        <div class="container">
-            <h2>PRICE LIST JOKI TUGAS 2026</h2>
-            <div class="table-wrap">
-                <table>
-                    <tr>
-                        <th>JASA</th>
-                        <th>PELAJAR</th>
-                        <th>MAHASISWA</th>
-                        <th>CATATAN</th>
-                    </tr>
-                    <tr>
-                        <td class="jasa">PPT 10 Slide</td>
-                        <td>Rp25rb - 40rb</td>
-                        <td>Rp40rb - 70rb</td>
-                        <td>+10rb English</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">PPT 15-20 Slide</td>
-                        <td>Rp40rb - 60rb</td>
-                        <td>Rp70rb - 100rb</td>
-                        <td>Desain premium</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Makalah 5-8 Hal</td>
-                        <td>Rp40rb - 65rb</td>
-                        <td>Rp70rb - 110rb</td>
-                        <td>Riset + dapus</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Makalah 9-15 Hal</td>
-                        <td>Rp65rb - 90rb</td>
-                        <td>Rp110rb - 160rb</td>
-                        <td>Anti-plagiat</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Rangkuman/Bab</td>
-                        <td>Rp20rb - 35rb</td>
-                        <td>Rp35rb - 60rb</td>
-                        <td>Max 10 hal</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Tugas MTK/Fisika</td>
-                        <td>Rp7rb/soal</td>
-                        <td>Rp12rb/soal</td>
-                        <td>SMA + cara kerja</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Logo Simple</td>
-                        <td>Rp50rb - 100rb</td>
-                        <td>Rp100rb - 200rb</td>
-                        <td>3 konsep awal</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Poster A3/A4</td>
-                        <td>Rp50rb - 100rb</td>
-                        <td>Rp100rb - 180rb</td>
-                        <td>JPG + PDF + file mentah</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Infografis</td>
-                        <td>Rp40rb - 80rb</td>
-                        <td>Rp80rb - 150rb</td>
-                        <td>Data visual</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">CV ATS Friendly</td>
-                        <td>Rp35rb</td>
-                        <td>Rp60rb</td>
-                        <td>PDF + Word + tips</td>
-                    </tr>
-                    <tr>
-                        <td class="jasa">Express <24 Jam</td>
-                        <td>+75% Harga</td>
-                        <td>+75% Harga</td>
-                        <td>Wajib chat dulu</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- SYARAT SECTION -->
-    <section class="syarat-section">
-        <div class="syarat">
-            <h3>SYARAT & KETENTUAN ORDER - WAJIB BACA</h3>
+            <input type="text" id="inputNama" placeholder="Nama Lengkap">
+            <input type="text" id="inputKode" placeholder="Kode Ujian">
+            <button class="btn" onclick="startApp('siswa')">Mulai Ujian</button>
             
-            <h4>1. MATERI & REFERENSI</h4>
-            <ol>
-                <li><strong>Wajib kasih brief jelas:</strong> Judul, jumlah slide/halaman, deadline, format yang diminta dosen/guru.</li>
-                <li><strong>Opsi A - Klien kasih materi:</strong> Kirim file/PDF/poin-poin. Hasil 95% sesuai. <strong>Harga normal.</strong></li>
-                <li><strong>Opsi B - Bebas penjoki:</strong> Cuma kasih judul + deadline. Kita yang riset dari 0. <strong>+Biaya riset Rp10rb-Rp30rb.</strong></li>
-                <li><strong>Tanpa referensi & nggak mau bayar riset = Maaf kami tolak</strong> biar nggak tebak-tebakan.</li>
-            </ol>
-
-            <h4>2. PEMBAYARAN</h4>
-            <ol>
-                <li><strong>DP 50% di awal setelah deal harga.</strong> Baru tugas dikerjakan. No DP = No kerja.</li>
-                <li><strong>Pelunasan</strong> setelah file preview PDF dikirim & klien ACC. Baru kirim file edit PPT/Word.</li>
-                <li><strong>DP hangus</strong> jika klien batal sepihak setelah pengerjaan dimulai.</li>
-            </ol>
-            <div class="payment-box">
-                <strong>💳 PEMBAYARAN VIA:</strong><br>
-                DANA / Gopay : <strong>0882 1372 1792</strong><br>
-                Muhammad Noor Arrafi - Wajib kirim bukti transfer ya kak
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #334155;">
+            <p onclick="document.getElementById('guruForm').classList.toggle('hide')" style="cursor:pointer; font-size: 0.8rem;">Akses Guru</p>
+            <div id="guruForm" class="hide">
+                <input type="password" id="passGuru" placeholder="Password Guru">
+                <button class="btn" style="background:#475569" onclick="startApp('guru')">Login Monitoring</button>
             </div>
-
-            <h4>3. PENGERJAAN & REVISI</h4>
-            <ol>
-                <li><strong>Waktu normal 1-3 hari</strong> tergantung antrian. Express <24 jam +75% harga.</li>
-                <li><strong>Gratis revisi 1x minor:</strong> typo, ganti warna, tambah 1-2 slide, geser layout.</li>
-                <li><strong>Revisi mayor bayar lagi:</strong> Ganti total tema, tambah >3 slide, rombak isi = hitung project baru.</li>
-                <li><strong>Batas komplain 1x24 jam</strong> setelah file final dikirim. Lewat itu dianggap selesai.</li>
-            </ol>
-
-            <h4>4. BATASAN JASA</h4>
-            <ol>
-                <li class="danger"><strong>TOLAK TEGAS:</strong> Joki ujian, kuis, UTS, UAS, skripsi, tesis, disertasi, tes CPNS/BUMN.</li>
-                <li><strong>Hanya terima:</strong> PPT presentasi, makalah, resume, rangkuman, tugas harian, desain.</li>
-                <li><strong>Data klien 100% rahasia.</strong> Tidak disebar atau jadi portofolio tanpa izin.</li>
-                <li><strong>Fast Response:</strong> 08.00 - 21.00 WIB. Chat di luar jam itu dibalas besoknya.</li>
-            </ol>
         </div>
-    </section>
-
-    <!-- CTA SECTION -->
-    <section class="cta">
-        <h2>Konsultasi Gratis & Order Sekarang</h2>
-        <a href="https://wa.me/6288213721792?text=Halo%20kak%20Rafi,%20saya%20mau%20tanya%20jasa%20joki%20tugas.%20Saya%20sudah%20lihat%20portofolio%20dan%20baca%20syaratnya" class="btn btn-wa">💬 Chat WhatsApp</a>
-        <a href="mailto:arrafirafi2010@gmail.com?subject=Order%20Joki%20Tugas" class="btn btn-email">📧 Kirim Email</a>
-    </section>
-
-    <div class="footer">
-        <p>© 2026 Jasa Joki arrafi | 100% Amanah & Privasi Terjaga</p>
     </div>
+
+    <!-- SISWA UI -->
+    <div id="siswaUI" class="screen hide">
+        <div class="header">
+            <div><b id="displayNama">-</b><br><small id="statusCon" style="color:var(--success)">Online</small></div>
+            <div style="text-align: right;"><span id="vCount" style="color:var(--danger)">0 Pelanggaran</span></div>
+        </div>
+        <div class="soal-card glass">
+            <h3 id="qText">Memuat soal...</h3>
+            <div id="opsiContainer"></div>
+            <button class="btn" onclick="nextSoal()">Soal Selanjutnya</button>
+        </div>
+        <video id="camView" style="display:none" autoplay playsinline></video>
+        <canvas id="capCanvas" style="display:none"></canvas>
+    </div>
+
+    <!-- GURU UI -->
+    <div id="guruUI" class="screen hide">
+        <div class="header">
+            <h3>Live Dashboard</h3>
+            <button class="btn" style="width:auto; padding: 5px 15px;" onclick="location.reload()">Log Out</button>
+        </div>
+        <div id="monitorGrid" class="grid-monitor"></div>
+    </div>
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
+
+    <script>
+        // 1. KONFIGURASI (Ganti dengan milik Anda)
+        const firebaseConfig = {
+            apiKey: "AIzaSy...",
+            databaseURL: "https://your-project.firebaseio.com",
+            projectId: "your-project",
+            appId: "1:..."
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let userRole = '';
+        let uName = '';
+        let uKode = '';
+        let violation = 0;
+        let isStarted = false;
+        let currentIdx = 0;
+        let wakeLock = null;
+
+        const soal = [
+            {q: "Berapa hasil dari 5 + 5?", o: ["8", "9", "10", "11"], a: 2},
+            {q: "Apa ibukota Indonesia?", o: ["Jakarta", "IKN", "Bandung", "Surabaya"], a: 1}
+        ];
+
+        // 2. CORE LOGIC
+        async function startApp(role) {
+            userRole = role;
+            if(role === 'siswa') {
+                uName = document.getElementById('inputNama').value;
+                uKode = document.getElementById('inputKode').value;
+                if(!uName || !uKode) return alert("Isi nama dan kode!");
+                
+                // Minta izin kamera
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                    document.getElementById('camView').srcObject = stream;
+                    initSiswa();
+                } catch(e) { alert("Izin kamera diperlukan!"); }
+            } else {
+                if(document.getElementById('passGuru').value !== "admin123") return alert("Salah password!");
+                initGuru();
+            }
+        }
+
+        // 3. SISWA SIDE
+        async function initSiswa() {
+            document.getElementById('loginScreen').classList.add('hide');
+            document.getElementById('siswaUI').classList.remove('hide');
+            document.getElementById('displayNama').innerText = uName;
+            isStarted = true;
+
+            // Mencegah HP Sleep
+            if ('wakeLock' in navigator) {
+                try { wakeLock = await navigator.wakeLock.request('screen'); } catch (err) {}
+            }
+
+            renderSoal();
+            setupAntiCheat();
+            
+            // Loop sinkronisasi setiap 4 detik
+            setInterval(syncData, 4000);
+        }
+
+        function renderSoal() {
+            const data = soal[currentIdx];
+            document.getElementById('qText').innerText = `${currentIdx + 1}. ${data.q}`;
+            let html = "";
+            data.o.forEach((opt, i) => {
+                html += `<div class="opsi" onclick="select(this, ${i})">${opt}</div>`;
+            });
+            document.getElementById('opsiContainer').innerHTML = html;
+        }
+
+        function select(el, idx) {
+            document.querySelectorAll('.opsi').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function nextSoal() {
+            if(currentIdx < soal.length - 1) {
+                currentIdx++;
+                renderSoal();
+            } else {
+                alert("Ujian Selesai!");
+                db.ref(`exams/${uKode}/users/${uName}`).update({status: "Selesai"});
+                location.reload();
+            }
+        }
+
+        // 4. ANTI CHAT LOGIC (HP Optimized)
+        function setupAntiCheat() {
+            // Deteksi Pindah Aplikasi / Tarik Notif (Blur)
+            window.addEventListener('blur', () => {
+                if(isStarted) logViolation("Meninggalkan Halaman / Membuka Notifikasi");
+            });
+
+            // Deteksi Ganti Tab (Visibility)
+            document.addEventListener('visibilitychange', () => {
+                if(document.hidden && isStarted) logViolation("Pindah Tab Browser");
+            });
+
+            // Mencegah Tombol Back
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = () => window.history.go(1);
+        }
+
+        function logViolation(msg) {
+            violation++;
+            document.getElementById('vCount').innerText = `${violation} Pelanggaran`;
+            
+            // Simpan riwayat pelanggaran ke Firebase
+            db.ref(`exams/${uKode}/users/${uName}/logs`).push({
+                time: new Date().toLocaleTimeString(),
+                reason: msg
+            });
+
+            if(violation >= 5) {
+                alert("Anda didiskualifikasi!");
+                location.reload();
+            }
+        }
+
+        function syncData() {
+            const video = document.getElementById('camView');
+            const canvas = document.getElementById('capCanvas');
+            canvas.width = 120; canvas.height = 160;
+            canvas.getContext('2d').drawImage(video, 0, 0, 120, 160);
+            
+            db.ref(`exams/${uKode}/users/${uName}`).update({
+                lastSeen: Date.now(),
+                violationCount: violation,
+                progress: currentIdx + 1,
+                img: canvas.toDataURL('image/jpeg', 0.5)
+            });
+        }
+
+        // 5. GURU SIDE
+        function initGuru() {
+            document.getElementById('loginScreen').classList.add('hide');
+            document.getElementById('guruUI').classList.remove('hide');
+
+            db.ref(`exams`).on('value', snap => {
+                let html = "";
+                const exams = snap.val();
+                for(let kode in exams) {
+                    const users = exams[kode].users;
+                    for(let name in users) {
+                        const u = users[name];
+                        const isOffline = (Date.now() - u.lastSeen) > 10000;
+                        html += `
+                            <div class="card-siswa glass" style="border: 1px solid ${u.violationCount > 0 ? '#f43f5e' : '#334155'}">
+                                ${u.violationCount > 0 ? `<span class="badge-alert">${u.violationCount}</span>` : ''}
+                                <img src="${u.img}" class="snap-img" style="filter: ${isOffline ? 'grayscale(1)' : 'none'}">
+                                <b>${name}</b><br>
+                                <small>KODE: ${kode}</small><br>
+                                <small>Progres: ${u.progress}/${soal.length}</small><br>
+                                <small style="color:${isOffline ? 'red' : '#10b981'}">${isOffline ? 'OFFLINE' : 'ONLINE'}</small>
+                            </div>
+                        `;
+                    }
+                }
+                document.getElementById('monitorGrid').innerHTML = html;
+            });
+        }
+    </script>
 </body>
-</html> 
+</html>
